@@ -80,9 +80,6 @@ class Simulation:
             qlist[j + 1] = nxt_element
         return qlist
 
-    def check_availability(self):
-        return bool
-
 
 if __name__ == '__main__':
     a_list = []
