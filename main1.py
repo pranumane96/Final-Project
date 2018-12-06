@@ -10,7 +10,6 @@ class Project:
         team_size = self.team()
         proj_sensitivity = self.sensitivity()
         priority = self.priority()
-        print(project_duration, team_size, proj_sensitivity, priority)
         return list([project_duration, team_size, proj_sensitivity, priority])
 
     def project_duration(self):
@@ -38,7 +37,7 @@ class Simulation:
         completed_projects = 0
         incomplete_projects = 0
         total_weeks = 50
-        available_employees = 30
+        available_employees = 50
         projects_in_working = []
         projects_in_queue = []
 
@@ -50,9 +49,10 @@ class Simulation:
                             projects_in_working.remove(every)
                             completed_projects += 1
 
-            if random.randint(0, 2):
+            if random.randint(0, 1):
                 new_project = Project()
                 new_project = new_project.create()
+                self.print_details(new_project)
                 projects_in_queue.append(new_project)
                 projects_in_queue = self.sort_queue(projects_in_queue)
 
@@ -72,7 +72,7 @@ class Simulation:
         incomplete_projects = incomplete_projects + len(projects_in_queue)
         projects_in_progress = len(projects_in_working)
 
-        return list([completed_projects, incomplete_projects, projects_in_progress])
+        return [completed_projects, incomplete_projects, projects_in_progress]
 
     def sort_queue(self, qlist):
         for i in range(1, len(qlist)):
@@ -84,6 +84,11 @@ class Simulation:
             qlist[j + 1] = nxt_element
         return qlist
 
+    def print_details(self, project):
+        print("Simulating project of duration {0} weeks, consisting of {1} team members \
+              , which cannot be extended beyond {2} weeks, as it has a priority of {3}".format(project[0], project[1],\
+                                                                                          project[2], project[3]))
+
 
 if __name__ == '__main__':
     summary_df = pd.DataFrame(columns=['Completed', 'Incomplete', 'In Progress'])
@@ -91,7 +96,10 @@ if __name__ == '__main__':
     for i in range(number_of_simulations):
         s = Simulation()
         yearwise_stats = s.simulate_year()
-        print(yearwise_stats)
-        summary_df.append(pd.Series(yearwise_stats, index= ['Completed', 'Incomplete', 'In Progress']), ignore_index=True)
+        summary_df = summary_df.append({'Completed': yearwise_stats[0],'Incomplete': yearwise_stats[1], \
+                        'In Progress': yearwise_stats[2]}, ignore_index=True)
+
+        averages = summary_df.mean(axis = 0)
 
     print(summary_df)
+    print(averages)
