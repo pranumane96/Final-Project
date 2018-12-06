@@ -1,5 +1,6 @@
 import random
 import pandas as pd
+import matplotlib.pyplot as plt
 
 class Project:
     def __init__(self):
@@ -37,7 +38,7 @@ class Simulation:
         completed_projects = 0
         incomplete_projects = 0
         total_weeks = 50
-        available_employees = 50
+        available_employees = 30
         projects_in_working = []
         projects_in_queue = []
 
@@ -48,6 +49,7 @@ class Simulation:
                         if every[0] == 0:
                             projects_in_working.remove(every)
                             completed_projects += 1
+                            available_employees += every[1]
 
             if random.randint(0, 1):
                 new_project = Project()
@@ -85,21 +87,31 @@ class Simulation:
         return qlist
 
     def print_details(self, project):
-        print("Simulating project of duration {0} weeks, consisting of {1} team members \
-              , which cannot be extended beyond {2} weeks, as it has a priority of {3}".format(project[0], project[1], \
-                                                                                          project[2], project[3]))
+        print("Simulating project of duration {0} weeks, consisting of {1} team members, which cannot be extended beyond\
+ {2} weeks, as it has a priority of {3}".format(project[0], project[1], project[2], project[3]))
 
 
 if __name__ == '__main__':
     summary_df = pd.DataFrame(columns=['Completed', 'Incomplete', 'In Progress'])
-    number_of_simulations = 10
+    number_of_simulations = 500
     for i in range(number_of_simulations):
         s = Simulation()
         yearwise_stats = s.simulate_year()
         summary_df = summary_df.append({'Completed': yearwise_stats[0],'Incomplete': yearwise_stats[1], \
                         'In Progress': yearwise_stats[2]}, ignore_index=True)
 
-        averages = summary_df.mean(axis = 0)
-
+    averages = summary_df.mean(axis = 0)
     print(summary_df)
     print(averages)
+
+    colors = ("green", "red", "yellow")
+    x = (summary_df['Completed'], summary_df['Incomplete'], summary_df['In Progress'])
+
+    for x, color in zip(x, colors):
+        plt.scatter(x, y=summary_df.index.values, c = color, alpha=0.5)
+    plt.title('Number of completed projects over 100 simulations')
+    plt.xlabel('Projects')
+    plt.ylabel('Index values')
+    plt.show()
+
+
