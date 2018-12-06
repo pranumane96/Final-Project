@@ -21,7 +21,7 @@ class Project:
         return team_size
 
     def sensitivity(self):
-        proj_sens = random.randint(2, 13)
+        proj_sens = random.randint(2, 12)
         return proj_sens
 
     def priority(self):
@@ -86,7 +86,7 @@ class Simulation:
 
     def print_details(self, project):
         print("Simulating project of duration {0} weeks, consisting of {1} team members \
-              , which cannot be extended beyond {2} weeks, as it has a priority of {3}".format(project[0], project[1],\
+              , which cannot be extended beyond {2} weeks, as it has a priority of {3}".format(project[0], project[1], \
                                                                                           project[2], project[3]))
 
 
