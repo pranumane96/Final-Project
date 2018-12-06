@@ -1,12 +1,17 @@
 import random
+import pandas as pd
 
 class Project:
     def __init__(self):
+        return
+
+    def create(self):
         project_duration = self.project_duration()
         team_size = self.team()
         proj_sensitivity = self.sensitivity()
         priority = self.priority()
-        return list(project_duration, team_size, proj_sensitivity, priority)
+        print(project_duration, team_size, proj_sensitivity, priority)
+        return list([project_duration, team_size, proj_sensitivity, priority])
 
     def project_duration(self):
         duration = random.randint(12, 16)
@@ -21,26 +26,24 @@ class Project:
         return proj_sens
 
     def priority(self):
-        proj_priority = random.randint(1, 6)
+        proj_priority = random.randint(1, 5)
         return proj_priority
 
 class Simulation:
 
     def __init__(self):
-        self.simulate_a_year()
         return
 
-    def simulate_a_year(self):
+    def simulate_year(self):
         completed_projects = 0
         incomplete_projects = 0
-        projects_in_progress = 0
         total_weeks = 50
         available_employees = 30
         projects_in_working = []
         projects_in_queue = []
 
         for week in range(total_weeks):
-            if len(projects_in_working >0):
+            if len(projects_in_working) > 0:
                 for every in projects_in_working:
                         every[0] = every[0] - 1
                         if every[0] == 0:
@@ -49,28 +52,29 @@ class Simulation:
 
             if random.randint(0, 2):
                 new_project = Project()
+                new_project = new_project.create()
                 projects_in_queue.append(new_project)
-                projects_in_queue = Simulation.sort_queue(projects_in_queue)
+                projects_in_queue = self.sort_queue(projects_in_queue)
 
-            if len(projects_in_queue)>0:
-                flag = 1
-                while flag:
-                    for i in projects_in_queue:
-                        if available_employees > i[1]:
-                            projects_in_queue.remove(i)
-                            available_employees -= i[1]
-                            projects_in_working.append(i)
-                        if available_employees < 3:
-                            flag = 0
-                            break
+            if len(projects_in_queue) > 0:
+                for i in projects_in_queue:
+                    if available_employees > i[1]:
+                        projects_in_queue.remove(i)
+                        available_employees -= i[1]
+                        projects_in_working.append(i)
                 for i in projects_in_queue:
                     if i[2] == 0:
                         projects_in_queue.remove(i)
-                        incomplete_projects +=1
+                        incomplete_projects += 1
                     else:
                         i[2] -= 1
 
-    def sort_queue(self,qlist):
+        incomplete_projects = incomplete_projects + len(projects_in_queue)
+        projects_in_progress = len(projects_in_working)
+
+        return list([completed_projects, incomplete_projects, projects_in_progress])
+
+    def sort_queue(self, qlist):
         for i in range(1, len(qlist)):
             j = i - 1
             nxt_element = qlist[i]
@@ -82,8 +86,12 @@ class Simulation:
 
 
 if __name__ == '__main__':
-    a_list = []
-    number_of_simulations = 100
+    summary_df = pd.DataFrame(columns=['Completed', 'Incomplete', 'In Progress'])
+    number_of_simulations = 10
     for i in range(number_of_simulations):
-        a = Simulation()
-        a_list.append(a)
+        s = Simulation()
+        yearwise_stats = s.simulate_year()
+        print(yearwise_stats)
+        summary_df.append(pd.Series(yearwise_stats, index= ['Completed', 'Incomplete', 'In Progress']), ignore_index=True)
+
+    print(summary_df)
