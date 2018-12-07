@@ -87,8 +87,8 @@ class Simulation:
         return qlist
 
     def print_details(self, project):
-        print("Simulating project of duration {0} weeks, consisting of {1} team members, which cannot be extended beyond\
- {2} weeks, as it has a priority of {3}".format(project[0], project[1], project[2], project[3]))
+        print("Simulating project of duration {0} weeks, consisting of {1} team members. It cannot be extended beyond\
+ {2} weeks and it has a priority of {3}.".format(project[0], project[1], project[2], project[3]))
 
 
 if __name__ == '__main__':
@@ -99,9 +99,11 @@ if __name__ == '__main__':
         yearwise_stats = s.simulate_year()
         summary_df = summary_df.append({'Completed': yearwise_stats[0],'Incomplete': yearwise_stats[1], \
                         'In Progress': yearwise_stats[2]}, ignore_index=True)
-
+    print("\n\n---------------------------------------------------------------------------------------------------------------------------------------------------------------------\n")
+    print("Year-wise statistics look like:")
     averages = summary_df.mean(axis = 0)
     print(summary_df)
+    print("\nOn an average:\n")
     print(averages)
 
     colors = ("green", "red", "yellow")
@@ -109,8 +111,8 @@ if __name__ == '__main__':
 
     for x, color in zip(x, colors):
         plt.scatter(x, y=summary_df.index.values, c = color, alpha=0.5)
-    plt.title('Number of completed projects over 100 simulations')
-    plt.xlabel('Projects')
+    plt.title('Project Status over 500 simulations')
+    plt.xlabel('Number of projects')
     plt.ylabel('Index values')
     plt.show()
 

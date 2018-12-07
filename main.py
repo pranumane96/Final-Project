@@ -1,46 +1,103 @@
 import random
+import pandas as pd
+import matplotlib.pyplot as plt
+
 
 class Project:
-    # This class is for simulating various projects with randomised variable combinations
     def __init__(self):
-        avg_exp, avg_rating = self.initiate_members()
-        client_history = self.initiate_clients()
-        print(avg_exp, avg_rating, client_history)
         return
 
+    def create(self):
+        project_duration = self.project_duration()
+        team_size = self.team()
+        proj_sensitivity = self.sensitivity()
+        priority = self.priority()
+        return list([project_duration, team_size, proj_sensitivity, priority])
 
-    def initiate_members(self):
-        """
-        This function is for calculating the average experience and average rating of the team members
-        :return: average experience, average rating
-        """
-        team_exp = 0
-        team_rating = 0
-        no_of_members = random.randint(4,11)
-        for i in range(no_of_members+1):
-            add_member = Member()
-            team_exp += add_member.member_exp
-            team_rating += add_member.member_rating
-        avg_exp = team_exp/no_of_members
-        avg_rating = team_rating/no_of_members
-        return avg_exp, avg_rating
+    def project_duration(self):
+        duration = random.randint(12, 16)
+        return duration
 
-    def initiate_clients(self):
-        add_client = Client()
-        client_history = add_client.client_history
-        return client_history
+    def team(self):
+        team_size = random.randint(3, 7)
+        return team_size
 
-class Member:
-    # Class for simulating team members as various combinations of experience and rating
+    def sensitivity(self):
+        proj_sens = random.randint(2, 12)
+        return proj_sens
+
+    def priority(self):
+        proj_priority = random.randint(1, 5)
+        return proj_priority
+
+class Simulation:
+
     def __init__(self):
-        self.member_exp = random.randint(0, 21)
-        self.member_rating = random.randint(1, 6)
         return
 
-class Client:
-    # Class for simulating various client characteristics
-    def __init__(self):
-        self.client_history = random.randint(0, 2)
-        return
+    def simulate_year(self, completed_projects):
+        total_weeks = 50
+        projects_in_working = []
+        goal = completed_projects
+        employee_per_week = pd.DataFrame()
+        print("\n\n---------------------------------------------------------------------------------------------------------------------------------------------------------------------\n")
+        for week in range(total_weeks):
+            required_employees = 0
+            if len(projects_in_working) > 0:
+                for every in projects_in_working:
+                        every[0] = every[0] - 1
+                        if every[0] == 0:
+                            projects_in_working.remove(every)
 
-Project()
+            if random.randint(0, 1) and goal != 0:
+                new_project = Project()
+                new_project = new_project.create()
+                projects_in_working.append(new_project)
+                projects_in_working = self.sort_queue(projects_in_working)
+                goal -= 1
+
+            for each in projects_in_working:
+                required_employees += each[1]
+            print("Required employees for week {0} is {1}".format(week + 1 , required_employees))
+            employee_per_week = employee_per_week.append({'Requirement': required_employees}, ignore_index=True)
+        return [employee_per_week.loc[:, "Requirement"].mean(), employee_per_week.loc[:, "Requirement"].min()\
+            ,employee_per_week.loc[:, "Requirement"].max()]
+
+
+    def sort_queue(self, qlist):
+        for i in range(1, len(qlist)):
+            j = i - 1
+            nxt_element = qlist[i]
+            while (qlist[j][3] > nxt_element[3]) and (j >= 0):
+                qlist[j + 1] = qlist[j]
+                j = j - 1
+            qlist[j + 1] = nxt_element
+        return qlist
+
+
+if __name__ == '__main__':
+    summary_df = pd.DataFrame()
+    number_of_simulations = 100
+    completed_projects = 20
+    for i in range(number_of_simulations):
+        s = Simulation()
+        yearwise_stats = s.simulate_year(completed_projects)
+        summary_df = summary_df.append({'Average_Team': yearwise_stats[0],'Minimum_Team': yearwise_stats[1],
+                                        'Max_Team': yearwise_stats[2]}, ignore_index=True)
+    print("\n\n---------------------------------------------------------------------------------------------------------------------------------------------------------------------\n")
+    print("Year-wise statistics look like:")
+    averages = summary_df.mean(axis = 0)
+    print("\nOn an average:\n")
+    print(averages)
+
+    colors = ("green", "red", "yellow")
+    x = (summary_df['Average_Team'], summary_df['Minimum_Team'], summary_df['Max_Team'])
+
+    for x, color in zip(x, colors):
+        plt.scatter(x, y=summary_df.index.values, c = color, alpha=0.5)
+    plt.title('Number of employees required to complete 20 projects in a year')
+    plt.xlabel('Number of employees required per week')
+    plt.ylabel('Index values')
+    plt.show()
+
+
