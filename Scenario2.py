@@ -1,6 +1,7 @@
 import random
 import pandas as pd
 import matplotlib.pyplot as plt
+from math import ceil
 
 
 class Project:
@@ -35,10 +36,10 @@ class Simulation:
     def __init__(self):
         return
 
-    def simulate_year(self, completed_projects):
+    def simulate_year(self, completed_projects, last_year_incomplete):
         total_weeks = 50
-        projects_in_working = []
-        goal = completed_projects
+        projects_in_working = last_year_incomplete
+        goal = to_be_completed_projects
         employee_per_week = pd.DataFrame()
         print("\n\n---------------------------------------------------------------------------------------------------------------------------------------------------------------------\n")
         for week in range(total_weeks):
@@ -58,10 +59,10 @@ class Simulation:
 
             for each in projects_in_working:
                 required_employees += each[1]
-            print("Required employees for week {0} is {1}".format(week + 1 , required_employees))
+            print("Required employees for week {0} is {1}".format(week + 1, required_employees))
             employee_per_week = employee_per_week.append({'Requirement': required_employees}, ignore_index=True)
         return [employee_per_week.loc[:, "Requirement"].mean(), employee_per_week.loc[:, "Requirement"].min()\
-            ,employee_per_week.loc[:, "Requirement"].max()]
+            ,employee_per_week.loc[:, "Requirement"].max(), projects_in_working]
 
 
     def sort_queue(self, qlist):
@@ -78,15 +79,17 @@ class Simulation:
 if __name__ == '__main__':
     summary_df = pd.DataFrame()
     number_of_simulations = 100
-    completed_projects = 20
+    to_be_completed_projects = 40
+    incomplete = []
     for i in range(number_of_simulations):
         s = Simulation()
-        yearwise_stats = s.simulate_year(completed_projects)
+        yearwise_stats = s.simulate_year(to_be_completed_projects, incomplete)
         summary_df = summary_df.append({'Average_Team': yearwise_stats[0],'Minimum_Team': yearwise_stats[1],
                                         'Max_Team': yearwise_stats[2]}, ignore_index=True)
+        incomplete = yearwise_stats[3]
     print("\n\n---------------------------------------------------------------------------------------------------------------------------------------------------------------------\n")
     print("Year-wise statistics look like:")
-    averages = summary_df.mean(axis = 0)
+    averages = summary_df.mean().round(0)
     print("\nOn an average:\n")
     print(averages)
 
