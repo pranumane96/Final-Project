@@ -1,25 +1,21 @@
 # 590PR Final_Project
-Fork from here to create your final project repository.
 
-Two things are different than all the previous assignments in 590PR regarding the permissions settings:
-
-1. Please KEEP the "All_Students" team to have Read access.  
-2. Whenever you choose to, you are welcome to change your Final Project repository to private or to public.  This will enable you to list it in your resume, website, or other portfolio.
-
-DELETE these lines from TEMPLATE up.
-
-TEMPLATE for your report to fill out:
-
-# Title: 
+# Title: Project Outsourcing Planning using Monte Carlo Simulation
 
 ## Team Member(s):
-(Note: Don't put your email addresses here (which is public).  If a student wants their NAME hidden as well, due to optional FERPA regulations, they can be listed purely by their GitHub ID).
+Pranali Mane
+Saurav Yadav
 
 # Monte Carlo Simulation Scenario & Purpose:
-(be sure to read the instructions given in course Moodle)
+Outsourcing is a business practice in which services or job functions are farmed out to a third party. In information technology, an outsourcing initiative with a technology provider can involve a range of operations, from the entirety of the IT function to discrete, easily defined components, such as disaster recovery, network services, software development or QA testing. A lot of companies believe in outsourcing because of the several benefits it provides.
+
+We plan to use Monte Carlo simulation for estimating the average number of projects a software development company will have to outsource every year, assuming employees work only on a single project at a time.
 
 ## Simulation's variables of uncertainty
-List and describe your simulation's variables of uncertainty (where you're using pseudo-random number generation). For each such variable, how did you decide the range and probability distribution to use?  Do you think it's a good representation of reality?
+Project Duration (random distribution within 12-20 weeks)
+Size of the team (random distribution in 3-7 members)
+Sensitivity of the project (random distribution in 2-12 weeks)
+Priority (random distribution in the range 1-5)
 
 ## Hypothesis or hypotheses before running the simulation:
 
