@@ -11,10 +11,10 @@ Outsourcing is a business practice in which services or job functions are farmed
 The project is divided into 2 scenarios:
 
 Scenario 1: Fixed employees
-  This scenario is useful for organizations that want to estimate the number of projects they can complete within a year, based on certain independent variables/resources. We have used Monte Carlo simulation for estimating the average number of projects a software development company will have to outsource every year, assuming employees work only on a single project at a time.
+This scenario is useful for organizations that want to estimate the number of projects they can complete within a year, based on certain independent variables/resources. We have used Monte Carlo simulation for estimating the average number of projects a software development company will have to outsource every year, assuming employees work only on a single project at a time.
   
 Scenario 2: Fixed projects
-  If a company wants to estimate the human resources it will need for a year, this scenario is useful.
+If a company wants to estimate the human resources it will need for a year, this scenario is useful.
   
 ## Simulation's variables of uncertainty
 1) Project Duration - The duration of the project is randomly distributed between 12 - 20 weeks.  
