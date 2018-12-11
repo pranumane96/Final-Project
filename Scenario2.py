@@ -61,7 +61,11 @@ class Project:
 
 class Simulation:
     """
-    Simulating every year
+    Each simulation, is a year defined by 50 working weeks.
+    Target projects to be completed are 40.
+    Both weeks and number of projects can be changed as per requirement.
+
+    The simulation is run over 100 times and the results are averaged.
     """
     def __init__(self):
         return
