@@ -18,7 +18,7 @@ Scenario 2: Fixed projects - If a company wants to estimate the human resources 
 1) Project Duration - The duration of the project is randomly distributed between 12 - 20 weeks.  
 2) Size of the team - Number of team members in each team is randomly distributed between 3 - 7 members.
 3) Sensitivity of the project - This variable defines how early the client wants to get started off with the project. It is randomly distributed between 2 - 12 weeks.
-4) Priority - Priority of the project, useful while choosing a project out of the queue.
+4) Priority - Priority of the project, useful while choosing a project from the queue.
 
 ## Hypotheses or hypothesis of your simulation
 The simulation does not have a hypothesis, but some of the assumptions that it considers are:
