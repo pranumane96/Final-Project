@@ -9,6 +9,7 @@ Pranali Mane, Saurav Yadav
 Outsourcing is a business practice in which services or job functions are farmed out to a third party. In information technology, an outsourcing initiative with a technology provider can involve a range of operations, from the entirety of the IT function to discrete, easily defined components, such as disaster recovery, network services, software development or QA testing. A lot of companies believe in outsourcing because of the several benefits it provides.
 
 The project is divided into 2 scenarios:
+
 Scenario 1: Fixed employees
   This scenario is useful for organizations that want to estimate the number of projects they can complete within a year, based on certain independent variables/resources. We have used Monte Carlo simulation for estimating the average number of projects a software development company will have to outsource every year, assuming employees work only on a single project at a time.
   
