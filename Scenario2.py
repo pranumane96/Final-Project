@@ -103,8 +103,13 @@ class Simulation:
     def sort_queue(qlist):
         """
         The function is used to sort projects waiting in queue according to their priority
+        1 is the highest priority and 5 is the least
         :param qlist: Takes the projects in queue list
         :return: Returns a list sorted on the basis of the projects' priorities
+
+        >>> Simulation.sort_queue([[5, 6, 3, 1], [8, 7, 12, 2], [13, 4, 3, 4], [5, 6, 3, 5], [12, 3, 5, 3]])
+        [[5, 6, 3, 1], [8, 7, 12, 2], [12, 3, 5, 3], [13, 4, 3, 4], [5, 6, 3, 5]]
+
         """
         for i in range(1, len(qlist)):
             j = i - 1
@@ -117,6 +122,8 @@ class Simulation:
 
 
 if __name__ == '__main__':
+    import doctest
+    doctest.testmod()
     summary_df = pd.DataFrame()
     number_of_simulations = 100
     to_be_completed_projects = 40

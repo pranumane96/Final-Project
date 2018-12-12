@@ -120,6 +120,9 @@ class Simulation:
         The function is used to sort projects waiting in queue according to their priority
         :param qlist: Takes the projects in queue list
         :return: Returns a list sorted on the basis of the projects' priorities
+
+        >>> Simulation.sort_queue([[5, 6, 3, 1], [8, 7, 12, 2], [13, 4, 3, 4], [5, 6, 3, 5], [12, 3, 5, 3]])
+        [[5, 6, 3, 1], [8, 7, 12, 2], [12, 3, 5, 3], [13, 4, 3, 4], [5, 6, 3, 5]]
         """
         for i in range(1, len(qlist)):
             j = i - 1
@@ -136,6 +139,8 @@ class Simulation:
 
 
 if __name__ == '__main__':
+    import doctest
+    doctest.testmod()
     summary_df = pd.DataFrame(columns=['Completed', 'Incomplete', 'In Progress'])
     number_of_simulations = 500
     for i in range(number_of_simulations):
