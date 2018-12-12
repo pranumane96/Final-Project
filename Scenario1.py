@@ -119,6 +119,7 @@ class Simulation:
     def sort_queue(qlist):
         """
         The function is used to sort projects waiting in queue according to their priority
+        1 is the highest priority and 5 is the least
         :param qlist: Takes the projects in queue list
         :return: Returns a list sorted on the basis of the projects' priorities
 
