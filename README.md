@@ -24,7 +24,7 @@ Scenario 2: Fixed projects - If a company wants to estimate the human resources 
 The simulation does not have a hypothesis, but some of the assumptions that it considers are:
 1) One employee will work only on one project at a time
 2) Scenario 1 considers 30 employees
-3) Scenario 2 considers 50 completed projects as the goal
+3) Scenario 2 considers 40 completed projects as the goal
 4) Projects in queue are considered incomplete
 
 ## Analytical Summary of your findings: (e.g. Did you adjust the scenario based on previous simulation outcomes?  What are the management decisions one could make from your simulation's output, etc.)
