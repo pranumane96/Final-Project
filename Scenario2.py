@@ -20,6 +20,7 @@ employees required, and plots a scatter plot of the distribution.
 import random
 import pandas as pd
 import matplotlib.pyplot as plt
+import doctest
 
 
 class Project:
@@ -122,7 +123,6 @@ class Simulation:
 
 
 if __name__ == '__main__':
-    import doctest
     doctest.testmod()
     summary_df = pd.DataFrame()
     number_of_simulations = 100
@@ -145,7 +145,7 @@ if __name__ == '__main__':
     x = (summary_df['Average_#_of_Employees'], summary_df['Minimum_#_of_Employees'], summary_df['Maximum_#_of_Employees'])
 
     for x, color in zip(x, colors):
-        plt.scatter(x, y=summary_df.index.values, c = color, alpha=0.5)
+        plt.scatter(x, y=summary_df.index.values, c=color, alpha=0.5)
     plt.title('Number of employees required to complete 40 projects in a year')
     plt.xlabel('Number of employees required per week')
     plt.ylabel('Index values')

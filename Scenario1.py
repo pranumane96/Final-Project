@@ -17,6 +17,7 @@ and in-progress projects after a year, along with a visual distribution.
 import random
 import pandas as pd
 import matplotlib.pyplot as plt
+import doctest
 
 
 class Project:
@@ -139,7 +140,6 @@ class Simulation:
 
 
 if __name__ == '__main__':
-    import doctest
     doctest.testmod()
     summary_df = pd.DataFrame(columns=['Completed', 'Incomplete', 'In Progress'])
     number_of_simulations = 500
