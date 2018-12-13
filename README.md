@@ -34,7 +34,7 @@ The purpose of the simulation is to help organizations understand their capabili
 
 ## Instructions on how to use the program:
 The usage is pretty simple as there is no dataset or any other external sources involved.
-Download the 2 python (.py) files and run them using any environment.
+Download the 2 python (.py) files and run them using any suitable environment.
 
 ## All Sources Used:
  https://www.cio.com/article/2439495/outsourcing/outsourcing-outsourcing-definition-and-solutions.html
